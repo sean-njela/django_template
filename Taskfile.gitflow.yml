@@ -509,10 +509,11 @@ tasks:
           fi
         done
 
+      - |
         git push --tags
 
         echo "📚 Updating documentation..."
-        if ! uv run mike deploy --push --update-aliases "$version" latest --config-file mkdocs_docs/mkdocs.yml; then
+        if ! uv run mike deploy --push --update-aliases "{{.version}}" latest --config-file mkdocs_docs/mkdocs.yml; then
           echo "⚠️ Documentation update failed, but release was successful."
         fi
         if ! git push origin gh-pages; then
@@ -522,7 +523,7 @@ tasks:
           echo "⚠️ Failed to set default documentation version, but release was successful."
         fi
 
-        echo "✅ Release $version completed successfully!"
+        echo "✅ Release {{.version}} completed successfully!"
     requires:
       vars:
         - version
