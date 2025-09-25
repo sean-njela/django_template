@@ -1,97 +1,216 @@
-# Django Template
+<div align="center">
 
-Django template
+  <!-- Row of icons -->
+  <!--
+  <p>
+    <img src="https://logo.svgcdn.com/d/kubernetes-plain-wordmark.svg" alt="Kubernetes" height="95" />
+    &nbsp;&nbsp;
+    <img src="https://logo.svgcdn.com/d/prometheus-plain-wordmark.svg" alt="Prometheus" height="90" />
+    &nbsp;&nbsp;
+    <img src="https://logo.svgcdn.com/d/grafana-original-wordmark.svg" alt="Grafana" height="90" />
+    &nbsp;&nbsp;
+    <img src="https://logo.svgcdn.com/d/helm-original.svg" alt="Helm" height="90" />
+  </p>
+  -->
 
+  <h1>Project Title</h1>
+
+  <p>
+    Brief description of the project. This can include what problem it solves, the tools or technologies it showcases, or what it aims to demonstrate.
+  </p>
+
+  <p>
+    <a href="https://github.com/sean-njela/docs/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/sean-njela/docs" alt="contributors" />
+  </a>
+  <a href="">
+    <img src="https://img.shields.io/github/last-commit/sean-njela/docs" alt="last update" />
+  </a>
+  <a href="https://github.com/sean-njela/docs/network/members">
+    <img src="https://img.shields.io/github/forks/sean-njela/docs" alt="forks" />
+  </a>
+  <a href="https://github.com/sean-njela/docs/stargazers">
+    <img src="https://img.shields.io/github/stars/sean-njela/docs" alt="stars" />
+  </a>
+  <a href="https://github.com/sean-njela/docs/issues/">
+    <img src="https://img.shields.io/github/issues/sean-njela/docs" alt="open issues" />
+  </a>
+  <a href="https://github.com/sean-njela/docs/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/sean-njela/docs.svg" alt="license" />
+  </a>
+  </p>
+</div>
+
+
+## Table of Contents
+
+  * [Screenshots](#screenshots)
+  * [Tech Stack](#tech-stack)
+  * [Prerequisites](#prerequisites)
+  * [Quick Start](#quick-start)
+  * [Documentation](#documentation)
+  * [Features](#features)
+  * [Tasks (automation)](#tasks)
+  * [Roadmap](#roadmap)
+  * [License](#license)
+  * [Contributing](#contributing)
+  * [Contact](#contact)
+
+## Screenshots
+
+<!-- <div align="center"> 
+  <img src="assets/screenshot1.png" alt="screenshot1" />
+  <img src="assets/screenshot2.png" alt="screenshot2" />
+</div> -->
+
+<!-- 
+## Demo
+<a href="https://www.example.com/">
+<div align="center"> 
+  <img src="assets/screenshot1.png" alt="screenshot 1" />
+  <img href="https://www.example.com/" src="assets/screenshot2.png" alt="screenshot 2" />
+</div>
+</a>
+
+![▶ Watch a short demo](assets/demo-video-gif.gif)
+[![▶ Watch a short demo](assets/demo-video-gif.gif)](https://www.example.com/)
+ -->
+
+[▶ Watch a short demo](assets/demo-video-small.mp4)
+
+## Tech Stack
+
+> List of tools used in the project
+
+![Devbox](https://img.shields.io/badge/Devbox-0.15.0-green)
+![Taskfile](https://img.shields.io/badge/Taskfile-3.44.0-green)
+![gitflow](https://img.shields.io/badge/gitflow-1.12-green)
 [![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
-License: MIT
+## Prerequisites
 
-## Settings
+> This project uses [Devbox](https://www.jetify.com/devbox/) to manage the development environment. Devbox provides a consistent, isolated environment with all the necessary CLI tools pre-installed.
 
-Moved to [settings](https://cookiecutter-django.readthedocs.io/en/latest/1-getting-started/settings.html).
+0. **Install Docker**
 
-## Basic Commands
+   - Follow the [installation instructions](https://docs.docker.com/get-docker/) for your operating system.
 
-### Setting Up Your Users
+> The rest of the tools are already installed in the devbox environment
 
-- To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
+1. **Install Devbox**
 
-- To create a **superuser account**, use this command:
+   - Follow the [installation instructions](https://www.jetify.com/devbox/docs/installing_devbox/) for your operating system.
 
-      uv run python manage.py createsuperuser
+2. **Clone the Repository**
 
-For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
+   ```bash
+   git clone https://github.com/your-username/your-repo.git
+   cd your-repo
+   ```
 
-### Type checks
+3. **Start the Devbox Environment and poetry environment**
 
-Running type checks with mypy:
+   ```bash
+   devbox shell # Start the devbox environment (this will also start the poetry environment)
+   poetry install # Install dependencies
+   poetry env activate # use the output to activate the poetry environment ( ONLY IF DEVBOX DOES NOT ACTIVATE THE ENVIRONMENT)
+   ```
+> Note - The first time you run `devbox shell`, it will take a few minutes to install the necessary tools. But after that it will be much faster.
 
-    uv run mypy django_template
-
-### Test coverage
-
-To run the tests, check your test coverage, and generate an HTML coverage report:
-
-    uv run coverage run -m pytest
-    uv run coverage html
-    uv run open htmlcov/index.html
-
-#### Running tests with pytest
-
-    uv run pytest
-
-### Live reloading and Sass CSS compilation
-
-Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/2-local-development/developing-locally.html#using-webpack-or-gulp).
-
-### Celery
-
-This app comes with Celery.
-
-To run a celery worker:
+## Quick Start
 
 ```bash
-cd django_template
-uv run celery -A config.celery_app worker -l info
+task setup
+
+task status # check if everything is running
+
+# GIVE EVERYTHING A MINUTE TO SETUP THEN
+task dev
 ```
 
-Please note: For Celery's import magic to work, it is important _where_ the celery commands are run. If you are in the same folder with _manage.py_, you should be right.
+## Documentation
 
-To run [periodic tasks](https://docs.celeryq.dev/en/stable/userguide/periodic-tasks.html), you'll need to start the celery beat scheduler service. You can start it as a standalone process:
+For full documentation, setup instructions, and architecture details, visit the [docs](docs/index.md) or run:
 
 ```bash
-cd django_template
-uv run celery -A config.celery_app beat
+# Option 1
+task docs
+
+# Or if you prefer the docker version:
+# Option 2
+task docs-docker
+
+# ONLY RUN ONE OF THE ABOVE
 ```
 
-or you can embed the beat service inside a worker with the `-B` option (not recommended for production use):
+Docs are then available at: [http://127.0.0.1:8030/]()
+
+## Features
+
+* Feature 1
+* Feature 2
+* Feature 3
+
+## Tasks
+
+> This project is designed for a simple, one-command setup. All necessary actions are orchestrated through `Taskfile.yaml`.
 
 ```bash
-cd django_template
-uv run celery -A config.celery_app worker -B -l info
+task setup # setup the environment
+task dev # automated local provisioning
+task cleanup-dev # cleanup the dev environment
 ```
 
-### Email Server
+### Git Workflow with Git Flow
 
-In development, it is often nice to be able to see emails that are being sent from your application. For that reason local SMTP server [Mailpit](https://github.com/axllent/mailpit) with a web interface is available as docker container.
+The `Taskfile.gitflow.yaml` provides a structured Git workflow using Git Flow. This helps in managing features, releases, and hotfixes in a standardized way. To run these tasks just its the same as running any other task. Using gitflow is optional.
 
-Container mailpit will start automatically when you will run all docker containers.
-Please check [cookiecutter-django Docker documentation](https://cookiecutter-django.readthedocs.io/en/latest/2-local-development/developing-locally-docker.html) for more details how to start all containers.
+```bash
+task init                 # Initialize Git Flow with 'main', gh-pages and 'develop'
+task sync                 # Sync current branch with latest 'develop' and handle main updates
+task release:finish       # Finishes and publishes a release (merges, tags, pushes). e.g task release:finish version="1.2.0"
+```
 
-With Mailpit running, to view messages that are sent by your application, open your browser and go to `http://127.0.0.1:8025`
+To see all tasks:
 
-### Sentry
+```bash
+task --list-all
+```
 
-Sentry is an error logging aggregator service. You can sign up for a free account at <https://sentry.io/signup/?code=cookiecutter> or download and host it yourself.
-The system is set up with reasonable defaults, including 404 logging and integration with the WSGI application.
+If you do not want the gitflow tasks, you can remove the `Taskfile.gitflow.yaml` file and unlink it from the `Taskfile.yaml` file (remove the `includes` section). If you cannot find the section use CTRL + F to search for `Taskfile.gitflow.yaml`.
 
-You must set the DSN url in production.
+## NOTES
 
-## Deployment
+> Important notes to remember whilst using the project
 
-The following details how to deploy this application.
+## Troubleshooting
 
-### Docker
+For comprehensive troubleshooting, refer to the [Troubleshooting](docs/3-troubleshooting/overview.md) section. Or open the github pages [here](https://your-username.github.io/docs/3-troubleshooting/overview.md) and use the search bar to search your issue (USE INDIVIDUAL KEYWORDS NOT THE ISSUE NAME). 
 
-See detailed [cookiecutter-django Docker documentation](https://cookiecutter-django.readthedocs.io/en/latest/3-deployment/deployment-with-docker.html).
+## Roadmap
+
+* [x] Feature A
+* [ ] Feature B
+* [ ] Feature C
+
+## Contributing
+
+<a href="https://github.com/your-username/your-repo/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=your-username/your-repo" />
+</a>
+
+> Contributions welcome! Open an issue or submit a PR.
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more info.
+
+## Contact
+
+Your Name – [@linkedin](https://linkedin.com/in/yourlinkedin) – [@twitter/x](https://x.com/yourtwitter) – [your.email@example.com](mailto:your.email@example.com)
+
+Project Link: [https://github.com/your-username/your-repo](https://github.com/your-username/your-repo)
+
+About Me - [About Me](docs/4-about/about.md)
+
