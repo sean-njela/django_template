@@ -3,6 +3,7 @@ version: '3'
 vars:
   MAIN_BRANCH: main
   DEV_BRANCH: develop
+  MKDOCS_YAML_FILE:  mkdocs_docs/mkdocs.yml
 
 tasks:
   # default:
@@ -458,7 +459,6 @@ tasks:
         # Push changes with force-with-lease for safety
         echo "🚀 Pushing changes to remote..."
         
-        # Safer push to main with retry mechanism
         MAX_RETRIES=3
         RETRY_COUNT=0
         PUSH_SUCCESS=false
@@ -478,11 +478,10 @@ tasks:
               echo "❌ Push to {{.MAIN_BRANCH}} failed after $MAX_RETRIES attempts."
               echo "Run 'task release:repair version=$version' to fix."
               exit 1
-            fi
+            }
           }
         done
         
-        # Safer push to develop with retry mechanism
         RETRY_COUNT=0
         PUSH_SUCCESS=false
         
@@ -501,7 +500,7 @@ tasks:
               echo "❌ Push to {{.DEV_BRANCH}} failed after $MAX_RETRIES attempts."
               echo "Run 'task release:repair version=$version' to fix."
               exit 1
-            fi
+            }
           }
         done
         
@@ -509,9 +508,9 @@ tasks:
         
         # Update documentation
         echo "📚 Updating documentation..."
-        uv run mike deploy --push --update-aliases "$version" latest || echo "⚠️ Documentation update failed, but release was successful."
+        uv run mike deploy --push --update-aliases "$version" latest --config-file {{.MKDOCS_YAML_FILE}} || echo "⚠️ Documentation update failed, but release was successful."
         git push origin gh-pages || echo "⚠️ Failed to push documentation, but release was successful."
-        uv run mike set-default latest --push || echo "⚠️ Failed to set default documentation version, but release was successful."
+        uv run mike set-default latest --push --config-file {{.MKDOCS_YAML_FILE}} || echo "⚠️ Failed to set default documentation version, but release was successful."
         
         echo "✅ Release $version completed successfully!"
     requires:
@@ -549,13 +548,10 @@ tasks:
   hotfix:finish:
     desc: "🏁 Finish hotfix, tag and merge -> task hotfix:finish version=1.2.1"
     preconditions:
-      # Check if we're on the correct hotfix branch
       - sh: 'git rev-parse --abbrev-ref HEAD | grep -q "^hotfix/{{.version}}$"'
         msg: "❌ You must be on the 'hotfix/{{.version}}' branch to finish it. Current branch: $(git rev-parse --abbrev-ref HEAD)"
-      # Check if the branch is clean
       - sh: git diff --quiet && git diff --staged --quiet
         msg: "❌ You have uncommitted changes. Please commit them first."
-      # Check if both target branches exist and are up-to-date
       - sh: 'git fetch origin && git branch -a | grep -q "remotes/origin/{{.MAIN_BRANCH}}"'
         msg: "❌ Remote '{{.MAIN_BRANCH}}' branch not found. Please check your repository setup."
       - sh: 'git fetch origin && git branch -a | grep -q "remotes/origin/{{.DEV_BRANCH}}"'
@@ -565,10 +561,8 @@ tasks:
         version=$(echo "{{.version}}" | tr '[:upper:]' '[:lower:]')
         echo "🏁 Finishing hotfix v$version..."
         
-        # Fetch latest from remote to ensure we're up-to-date
         git fetch origin
         
-        # Finish the hotfix with proper error handling
         git flow hotfix finish -m "Hotfix v$version" "$version" || {
           echo "❌ Failed to finish hotfix. Resolving conflicts may be required."
           echo "👉 If there are conflicts, resolve them and then run:"
@@ -576,14 +570,13 @@ tasks:
           exit 1
         }
         
-        # Push changes to remote branches and tags
         echo "🚀 Pushing changes to remote..."
         git push origin {{.MAIN_BRANCH}} || (echo "❌ Failed to push to {{.MAIN_BRANCH}}. Please push manually." && exit 1)
         git push origin {{.DEV_BRANCH}} || (echo "❌ Failed to push to {{.DEV_BRANCH}}. Please push manually." && exit 1)
         git push --tags || (echo "❌ Failed to push tags. Please push manually." && exit 1)
         
-        uv run mike deploy --push --update-aliases "{{.version}}" latest
-        uv run mike set-default latest --push
+        uv run mike deploy --push --update-aliases "$version" latest --config-file {{.MKDOCS_YAML_FILE}}
+        uv run mike set-default latest --push --config-file {{.MKDOCS_YAML_FILE}}
 
         echo "✅ Hotfix v$version completed successfully!"
     requires:
