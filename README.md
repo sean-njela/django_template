@@ -186,7 +186,7 @@ If you do not want the gitflow tasks, you can remove the `Taskfile.gitflow.yaml`
 
 ## Troubleshooting
 
-For comprehensive troubleshooting, refer to the [Troubleshooting](mkdocs_docs/3-troubleshooting/overview.md) section. Or open the github pages [here](https://your-username.github.io/docs/3-troubleshooting/overview.md) and use the search bar to search your issue (USE INDIVIDUAL KEYWORDS NOT THE ISSUE NAME). 
+For comprehensive troubleshooting, refer to the [Troubleshooting](mkdocs_docs/3-troubleshooting/0-overview.md) section. Or open the github pages [here](https://your-username.github.io/docs/3-troubleshooting/0-overview.md) and use the search bar to search your issue (USE INDIVIDUAL KEYWORDS NOT THE ISSUE NAME). 
 
 ## Roadmap
 
