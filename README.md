@@ -20,23 +20,23 @@
   </p>
 
   <p>
-    <a href="https://github.com/sean-njela/django_tenmplate/graphs/contributors">
-    <img src="https://img.shields.io/github/contributors/sean-njela/django_tenmplate" alt="contributors" />
+    <a href="https://github.com/sean-njela/django_template/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/sean-njela/django_template" alt="contributors" />
   </a>
   <a href="">
-    <img src="https://img.shields.io/github/last-commit/sean-njela/django_tenmplate" alt="last update" />
+    <img src="https://img.shields.io/github/last-commit/sean-njela/django_template" alt="last update" />
   </a>
-  <a href="https://github.com/sean-njela/django_tenmplate/network/members">
-    <img src="https://img.shields.io/github/forks/sean-njela/django_tenmplate" alt="forks" />
+  <a href="https://github.com/sean-njela/django_template/network/members">
+    <img src="https://img.shields.io/github/forks/sean-njela/django_template" alt="forks" />
   </a>
-  <a href="https://github.com/sean-njela/django_tenmplate/stargazers">
-    <img src="https://img.shields.io/github/stars/sean-njela/django_tenmplate" alt="stars" />
+  <a href="https://github.com/sean-njela/django_template/stargazers">
+    <img src="https://img.shields.io/github/stars/sean-njela/django_template" alt="stars" />
   </a>
-  <a href="https://github.com/sean-njela/django_tenmplate/issues/">
-    <img src="https://img.shields.io/github/issues/sean-njela/django_tenmplate" alt="open issues" />
+  <a href="https://github.com/sean-njela/django_template/issues/">
+    <img src="https://img.shields.io/github/issues/sean-njela/django_template" alt="open issues" />
   </a>
-  <a href="https://github.com/sean-njela/django_tenmplate/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/sean-njela/django_tenmplate.svg" alt="license" />
+  <a href="https://github.com/sean-njela/django_template/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/sean-njela/django_template.svg" alt="license" />
   </a>
   </p>
 </div>
