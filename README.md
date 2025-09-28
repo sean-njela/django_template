@@ -20,23 +20,23 @@
   </p>
 
   <p>
-    <a href="https://github.com/sean-njela/docs/graphs/contributors">
-    <img src="https://img.shields.io/github/contributors/sean-njela/docs" alt="contributors" />
+    <a href="https://github.com/sean-njela/django_tenmplate/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/sean-njela/django_tenmplate" alt="contributors" />
   </a>
   <a href="">
-    <img src="https://img.shields.io/github/last-commit/sean-njela/docs" alt="last update" />
+    <img src="https://img.shields.io/github/last-commit/sean-njela/django_tenmplate" alt="last update" />
   </a>
-  <a href="https://github.com/sean-njela/docs/network/members">
-    <img src="https://img.shields.io/github/forks/sean-njela/docs" alt="forks" />
+  <a href="https://github.com/sean-njela/django_tenmplate/network/members">
+    <img src="https://img.shields.io/github/forks/sean-njela/django_tenmplate" alt="forks" />
   </a>
-  <a href="https://github.com/sean-njela/docs/stargazers">
-    <img src="https://img.shields.io/github/stars/sean-njela/docs" alt="stars" />
+  <a href="https://github.com/sean-njela/django_tenmplate/stargazers">
+    <img src="https://img.shields.io/github/stars/sean-njela/django_tenmplate" alt="stars" />
   </a>
-  <a href="https://github.com/sean-njela/docs/issues/">
-    <img src="https://img.shields.io/github/issues/sean-njela/docs" alt="open issues" />
+  <a href="https://github.com/sean-njela/django_tenmplate/issues/">
+    <img src="https://img.shields.io/github/issues/sean-njela/django_tenmplate" alt="open issues" />
   </a>
-  <a href="https://github.com/sean-njela/docs/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/sean-njela/docs.svg" alt="license" />
+  <a href="https://github.com/sean-njela/django_tenmplate/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/sean-njela/django_tenmplate.svg" alt="license" />
   </a>
   </p>
 </div>
@@ -131,7 +131,7 @@ task dev
 
 ## Documentation
 
-For full documentation, setup instructions, and architecture details, visit the [docs](docs/index.md) or run:
+For full documentation, setup instructions, and architecture details, visit the [docs](mkdocs_docs/index.md) or run:
 
 ```bash
 # Option 1
@@ -186,7 +186,7 @@ If you do not want the gitflow tasks, you can remove the `Taskfile.gitflow.yaml`
 
 ## Troubleshooting
 
-For comprehensive troubleshooting, refer to the [Troubleshooting](docs/3-troubleshooting/overview.md) section. Or open the github pages [here](https://your-username.github.io/docs/3-troubleshooting/overview.md) and use the search bar to search your issue (USE INDIVIDUAL KEYWORDS NOT THE ISSUE NAME). 
+For comprehensive troubleshooting, refer to the [Troubleshooting](mkdocs_docs/3-troubleshooting/overview.md) section. Or open the github pages [here](https://your-username.github.io/docs/3-troubleshooting/overview.md) and use the search bar to search your issue (USE INDIVIDUAL KEYWORDS NOT THE ISSUE NAME). 
 
 ## Roadmap
 
@@ -212,5 +212,5 @@ Your Name – [@linkedin](https://linkedin.com/in/yourlinkedin) – [@twitter/x]
 
 Project Link: [https://github.com/your-username/your-repo](https://github.com/your-username/your-repo)
 
-About Me - [About Me](docs/4-about/about.md)
+About Me - [About Me](mkdocs_docs/4-about/0-about.md)
 
