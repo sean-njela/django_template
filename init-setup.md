@@ -70,7 +70,7 @@
     4 - Github
     5 - Drone
     Choose from [1/2/3/4/5] (1): 4
-  [26/27] keep_local_envs_in_vcs (y): n
+  [26/27] keep_local_envs_in_vcs (y): y
   [27/27] debug (n): 
 
   ```
