@@ -1,10 +1,10 @@
-site_name: My Docs| Sean Njela
+site_name: My Django Project Documentation| Sean Njela
 site_description: Professional docs implementation.
-site_url: https://sean-njela.github.io/docs/
+site_url: https://sean-njela.github.io/django_template/
 site_author: Sean Njela
-repo_url: https://github.com/sean-njela/docs/
-repo_name: sean-njela/docs/
-edit_uri: edit/main/docs/
+repo_url: https://github.com/sean-njela/django_template/
+repo_name: sean-njela/django_template/
+edit_uri: edit/main/django_template/
 copyright: Copyright &copy; 2025 Sean Njela - Personal Portfolio Project
 
 # Configuration
@@ -51,7 +51,7 @@ theme:
         name: Switch to light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: indigo
+      primary: blue grey
       accent: indigo
       toggle:
         icon: material/toggle-switch
