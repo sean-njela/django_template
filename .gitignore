@@ -274,4 +274,3 @@ django_template/media/
 .pytest_cache/
 .ipython/
 .env
-.envs/*
