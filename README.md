@@ -84,6 +84,14 @@
 [![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
+## Features
+
+* Modular Django project structure.
+* Automated environment setup with Taskfile.
+* Integrated documentation with MkDocs.
+* Optional GitFlow workflow tasks.
+* Preconfigured linting and formatting with Ruff.
+
 ## Prerequisites
 
 > This project uses [Devbox](https://www.jetify.com/devbox/) to manage the development environment. Devbox provides a consistent, isolated environment with all the necessary CLI tools pre-installed.
@@ -141,14 +149,6 @@ task docs-docker
 ```
 
 Docs are then available at: [http://127.0.0.1:8030/]()
-
-## Features
-
-* Modular Django project structure.
-* Automated environment setup with Taskfile.
-* Integrated documentation with MkDocs.
-* Optional GitFlow workflow tasks.
-* Preconfigured linting and formatting with Ruff.
 
 ## Tasks
 
