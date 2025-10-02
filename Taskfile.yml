@@ -53,7 +53,7 @@ vars:
   # compose
   DOCS_COMPOSE_FILE: docker-compose.docs.yml
   LOCAL_COMPOSE_FILE: docker-compose.local.yml
-  PROD_COMPOSE_FILE: docker-compose.prod.yml
+  PROD_COMPOSE_FILE: docker-compose.production.yml
   LOCAL_PROJECT_NAME: local
   # ports
   MKDOCS_PORT: 0.0.0.0:8030
