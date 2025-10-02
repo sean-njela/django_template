@@ -1,61 +1,130 @@
-# Project Title
+<div align="center">
 
-<!--
-  NOTE: Internal links should use clean URL style (no `.md` extension)
-  Example: [Quick Start](/0-quickstart/getting-started/)
-  MkDocs and Material auto-resolve these based on the nav structure.
--->
+  <!-- Row of icons -->
+  <p>
+    <img src="https://logo.svgcdn.com/l/django.svg" alt="Django" height="55"/>
+  </p>
 
-**One‑line project tagline or mission statement.**
+  <h1>Django Portfolio Template</h1>
 
-Welcome to the official documentation site for **Project Title**! This site includes full guides on setup, architecture, usage, and more.
+  <p>
+    A production-ready Django template for personal portfolio websites. It demonstrates a standardised project structure, containerised development environment, automated task runner, and documentation integration. It is designed to showcase projects, experience, and skills with minimal setup.
+  </p>
 
-## Quick Overview
+  <p>
+    <a href="https://github.com/sean-njela/django_template/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/sean-njela/django_template" alt="contributors" />
+  </a>
+  <a href="">
+    <img src="https://img.shields.io/github/last-commit/sean-njela/django_template" alt="last update" />
+  </a>
+  <a href="https://github.com/sean-njela/django_template/network/members">
+    <img src="https://img.shields.io/github/forks/sean-njela/django_template" alt="forks" />
+  </a>
+  <a href="https://github.com/sean-njela/django_template/stargazers">
+    <img src="https://img.shields.io/github/stars/sean-njela/django_template" alt="stars" />
+  </a>
+  <a href="https://github.com/sean-njela/django_template/issues/">
+    <img src="https://img.shields.io/github/issues/sean-njela/django_template" alt="open issues" />
+  </a>
+  <a href="https://github.com/sean-njela/django_template/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/sean-njela/django_template.svg" alt="license" />
+  </a>
+  </p>
+</div>
 
-Give users a brief snapshot of:
-- What your project does
-- The primary problem it solves
-- A link to live demo or deployed service (if applicable)
+## Tech Stack
 
-## Getting Started
+> List of tools used in the project
 
-Visit the **[Quick Start](0-quickstart/1-getting-started.md)** page in the docs for full instructions.
+[![Devbox](https://www.jetify.com/img/devbox/shield_moon.svg)](https://www.jetify.com/devbox/docs/contributor-quickstart/)
+![Taskfile](https://img.shields.io/badge/Taskfile-3.44.0-green)
+![gitflow](https://img.shields.io/badge/gitflow-1.12-green)
+[![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
-## Architecture & Components
+## Features
 
-Explore how the project is structured:
+* Modular Django project structure.
+* Automated environment setup with Taskfile.
+* Integrated documentation with MkDocs.
+* Optional GitFlow workflow tasks.
+* Preconfigured linting and formatting with Ruff.
 
-* High-level diagrams and workflows
-* Key modules or services
-* Technology stack and dependencies
+## Prerequisites
 
-Visit **[Architecture](1-architecture/0-overview.md)** for details.
+!!! IMPORTANT
+    This project uses **Devbox** to provide a consistent development environment.
 
-## Documentation Roadmap
+1. **Install Docker**
+   [Docker installation guide](https://docs.docker.com/get-docker/)
 
-* **Quick Start** → Setup, prerequisites, and usage
-* **Architecture** → System overview, component breakdown
-* **Features / Topics** → Detailed guides and explanations
-* **About Me** → Author info, contact, and background
+2. **Install Devbox**
+   [Devbox installation guide](https://www.jetify.com/devbox/docs/installing_devbox/)
 
-Navigation is in the sidebar for easy access.
+3. **Clone the repository**
+   ```bash
+   git clone ...
+   cd ...
+   ```
 
-## Examples & Use Cases
+4. **Start Devbox shell**
 
-Briefly bullet main use cases or examples to help users immediately grasp the project’s capabilities.
+   ```bash
+   devbox shell
+   ```
 
-* Use Case #1: What it does, why it matters
-* Use Case #2: Another compelling scenario
-* …
+  > First run may take several minutes to install tools.
 
-## Useful Links
+## Quick Start
 
-* [Getting Started](0-quickstart/1-getting-started.md)
-* [System Architecture](1-architecture/0-overview.md)
-* [Dive into Features](2-project/0-topic1.md)
-* [About Me](4-about/0-about.md)
+```bash
+task setup
+task status   # check if everything is running
+task dev      # start development stack
+task cleanup-dev
+```
 
-## Contributions & Feedback
+## Documentation
 
-Contributions welcome! Please open GitHub issues or PRs.
-License: [MIT](https://github.com/your-username/your-repo/blob/main/LICENSE) • Maintained by **Sean Njela**
+For full documentation, setup instructions, and architecture details, visit the [docs](mkdocs_docs/index.md) directory or run locally with:
+
+```bash
+task docs
+```
+
+Then open: [http://127.0.0.1:8030/]()
+
+## Tasks (Automation)
+
+!!! IMPORTANT
+    This project is designed for a simple, one-command setup. All necessary actions are orchestrated through `Taskfile.yml`.
+
+The `Taskfile.gitflow.yml` provides a structured Git workflow using Git Flow. This helps in managing features, releases, and hotfixes in a standardized way. To run these tasks just its the same as running any other task. Using gitflow is optional.
+
+To see all tasks:
+
+```bash
+task --list-all
+```
+
+If you do not want the gitflow tasks, you can remove the `Taskfile.gitflow.yml` file and unlink it from the `Taskfile.yml` file (remove the `includes` section). If you cannot find the section use CTRL + F to search for `Taskfile.gitflow.yml`.
+
+## Contributing
+
+<a href="https://github.com/sean-njela/django_template/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=sean-njela/django_template" />
+</a>
+
+> Contributions welcome! Open an issue or submit a PR.
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more info.
+
+## Contact
+
+* [LinkedIn](https://linkedin.com/in/sean-njela)
+* [Twitter/X](https://x.com/devopssean)
+* [seannjela@outlook.com](mailto:seannjela@outlook.com)
+* [About Me](mkdocs_docs/4-about/0-about.md)

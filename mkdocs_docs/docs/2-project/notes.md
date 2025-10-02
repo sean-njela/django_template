@@ -1,45 +1,43 @@
-# Django Template
-
-Django template
-
-[![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
-[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-
-License: MIT
-
-## Settings
-
-Moved to [settings](https://cookiecutter-django.readthedocs.io/en/latest/1-getting-started/settings.html).
+# General notes
 
 ## Basic Commands
+
+!!! tip
+    If running the stack using docker, `<prefix>` the commands with `docker compose -f docker-compose.local.yml run --rm django python`
 
 ### Setting Up Your Users
 
 - To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
 
 - To create a **superuser account**, use this command:
-
-      uv run python manage.py createsuperuser
-
+      ```sh
+      <prefix> uv run python manage.py createsuperuser
+      ```
 For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
 
 ### Type checks
 
 Running type checks with mypy:
 
-    uv run mypy django_template
+    ```sh
+    <prefix> uv run mypy django_template
+    ```
 
 ### Test coverage
 
 To run the tests, check your test coverage, and generate an HTML coverage report:
 
-    uv run coverage run -m pytest
-    uv run coverage html
-    uv run open htmlcov/index.html
+    ```sh
+    <prefix> uv run coverage run -m pytest
+    <prefix> uv run coverage html
+    <prefix> uv run open htmlcov/index.html
+    ```
 
 #### Running tests with pytest
 
-    uv run pytest
+    ```sh
+    <prefix> uv run pytest
+    ```
 
 ### Live reloading and Sass CSS compilation
 
@@ -51,9 +49,9 @@ This app comes with Celery.
 
 To run a celery worker:
 
-```bash
+```sh
 cd django_template
-uv run celery -A config.celery_app worker -l info
+<prefix> uv run celery -A config.celery_app worker -l info
 ```
 
 Please note: For Celery's import magic to work, it is important _where_ the celery commands are run. If you are in the same folder with _manage.py_, you should be right.
@@ -62,14 +60,14 @@ To run [periodic tasks](https://docs.celeryq.dev/en/stable/userguide/periodic-ta
 
 ```bash
 cd django_template
-uv run celery -A config.celery_app beat
+<prefix> uv run celery -A config.celery_app beat
 ```
 
 or you can embed the beat service inside a worker with the `-B` option (not recommended for production use):
 
-```bash
+```sh
 cd django_template
-uv run celery -A config.celery_app worker -B -l info
+<prefix> uv run celery -A config.celery_app worker -B -l info
 ```
 
 ### Email Server
@@ -95,3 +93,81 @@ The following details how to deploy this application.
 ### Docker
 
 See detailed [cookiecutter-django Docker documentation](https://cookiecutter-django.readthedocs.io/en/latest/3-deployment/deployment-with-docker.html).
+
+
+## Filtering Docker Compose Containers
+
+Docker does not record which `compose.local.yml` file created a container.
+Direct filtering by compose file name is not possible.
+
+### Approach 1: Manual Labels
+
+Add labels manually to each service:
+
+```yaml
+labels:
+  - source=compose.local.yml
+```
+
+### Usage
+
+Filter containers:
+
+```bash
+docker ps --filter "label=source=compose.local.yml"
+```
+
+### Downsides
+
+* Duplication across every service in YAML.
+* Typos or inconsistencies break filtering.
+* Extra cognitive overhead for contributors.
+* Risk of drift across environments (dev, prod).
+* Labels are visible via `docker inspect` → metata leakage.
+* No enforcement by Docker.
+
+### Approach 2: Using `-p` Project Name (Recommended)
+
+Run compose with an explicit project name:
+
+```sh
+docker compose -f compose.local.yml -p local up -d
+```
+
+Even `docker compose down` must use the same -p <project_name> that was used to bring the stack up. For any docker compose command that targets a project (including --rm clean-up options), you must also pass the same -p <project_name>.
+
+Docker auto-labels all resources:
+
+```sh
+com.docker.compose.project=local
+```
+
+### Usage
+
+Filter containers:
+
+```bash
+docker ps --filter "label=com.docker.compose.project=local"
+```
+
+### Advantages
+
+* No YAML edits.
+* Enforced automatically by Docker Compose.
+* Consistent across all services.
+* Lower maintenance overhead.
+
+### Downsides
+
+* Must remember to always pass `-p local`.
+* Forgetting `-p` daults to directory name, which creates a different project stack.
+
+### Best Practice
+
+* Always
+nvironment>` for clear separation:
+
+
+  * `-p local`
+  * `-p staging`
+  * `-p prod`
