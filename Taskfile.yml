@@ -50,17 +50,22 @@ env:
   DEBUG: '{{.DEBUG | default "false"}}'
 
 vars:
-  PROJECT_NAME: '{{.PROJECT_NAME | default "my-project"}}'
-  TIMESTAMP:
-    sh: date '+%Y%m%d%H%M%S'
+  # compose
   DOCS_COMPOSE_FILE: docker-compose.docs.yml
+  LOCAL_COMPOSE_FILE: docker-compose.local.yml
+  PROD_COMPOSE_FILE: docker-compose.prod.yml
+  LOCAL_PROJECT_NAME: local
+  # ports
   MKDOCS_PORT: 0.0.0.0:8030
+  # urls
+  CELERY_URL: "http://127.0.0.1:5555"
+  DJANGO_URL: "http://127.0.0.1:8000"
+  MAILPIT_URL: "http://127.0.0.1:8025"
 
 includes:
   common:
     taskfile: ./Taskfile.gitflow.yml
     flatten: true
-
 
 # ─── Core Tasks ────────────────────────────────────────────────────────────────
 tasks:
@@ -73,26 +78,35 @@ tasks:
     desc: "Setup environment: install dependencies, generate config etc."
     cmds:
       - pre-commit install
-
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} -p {{.LOCAL_PROJECT_NAME}} up -d
 
 # ─── Environment Management ────────────────────────────────────────────────────
   dev:
     desc: "Provision and start local development environment"
+    cmds:
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} -p {{.LOCAL_PROJECT_NAME}} run --rm django python manage.py migrate
+      - |
+        docker compose -f {{.LOCAL_COMPOSE_FILE}} -p {{.LOCAL_PROJECT_NAME}} run --rm \
+          -e DJANGO_SUPERUSER_USERNAME=admin \
+          -e DJANGO_SUPERUSER_EMAIL=admin@admin.com \
+          -e DJANGO_SUPERUSER_PASSWORD=admin123 \
+          django python manage.py createsuperuser --noinput
 
   prod:
     desc: "Provision and deploy to production"
-
 
 # ─── Misc ────────────────────────────────────────────────────
   info:
     desc: "URLs to visit"
     cmds:
-      - echo "Prometheus -> {{.PROM_URL}}"
-      - echo "Grafana -> {{.GRAF_URL}}"
-      - echo "App -> {{.APP_URL}}"
+      - echo "CELERY -> {{.CELERY_URL}}"
+      - echo "DJANGO -> {{.DJANGO_URL}}"
+      - echo "Mailpit -> {{.MAILPIT_URL}}"
 
   status:
     desc: "Check if everything is running"
+    cmds:
+      - docker ps --filter "label=com.docker.compose.project={{.LOCAL_PROJECT_NAME}}"
 
   versions:
     desc: "List current deployed versions"
@@ -100,13 +114,11 @@ tasks:
     cmds:
       - uv run mike list
 
-
 # ─── System Management ─────────────────────────────────────────────────────────
   ports:
     desc: "List ports in use"
     cmds:
       - ss -tunl
-
 
 # ─── Documentation ─────────────────────────────────────────────────────────────
   docs:
@@ -120,9 +132,13 @@ tasks:
     cmds:
       - docker compose -f {{.DOCS_COMPOSE_FILE}} up
 
-
-
 # ─── Cleanup Tasks ─────────────────────────────────────────────────────────────
+  # dev
+  compose-down-dev:
+    desc: "Shut down dev containers"
+    cmds:
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} -p {{.LOCAL_PROJECT_NAME}} down
+
   cleanup-zone:
     desc: "Cleans up all Zone.Identifier files"
     cmds:
@@ -142,8 +158,6 @@ tasks:
       - task: cleanup-dev
       - task: cleanup-prod
       - task: cleanup-zone
-
-
 
 # ─── Assets and Compression ────────────────────────────────────────────────────
   mkdir-assets:
