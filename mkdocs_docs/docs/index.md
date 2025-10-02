@@ -2,7 +2,7 @@
 
   <!-- Row of icons -->
   <p>
-    <img src="https://logo.svgcdn.com/l/django.svg" alt="Django" height="55"/>
+    <img src="https://logo.svgcdn.com/l/django.svg" alt="Django" height="95"/>
   </p>
 
   <h1>Django Portfolio Template</h1>
@@ -29,6 +29,12 @@
   </a>
   <a href="https://github.com/sean-njela/django_template/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/sean-njela/django_template.svg" alt="license" />
+  <a href="https://github.com/sean-njela/django_template/actions/workflows/ci.yml">
+    <img src="https://github.com/sean-njela/django_template/actions/workflows/ci.yml/badge.svg" alt="CI" />
+  <a href="https://github.com/sean-njela/django_template/actions/workflows/dependabot/dependabot-updates">
+    <img src="https://github.com/sean-njela/django_template/actions/workflows/dependabot/dependabot-updates/badge.svg" alt="Dependabot" />
+  <a href="https://github.com/sean-njela/django_template/actions/workflows/pages/pages-build-deployment">
+    <img src="https://github.com/sean-njela/django_template/actions/workflows/pages/pages-build-deployment/badge.svg" alt="GH-Pages" />
   </a>
   </p>
 </div>
