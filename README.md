@@ -1,6 +1,6 @@
 <div align="center">
 
-  <!-- Row of icons -->
+  <!-- Icon -->
   <p>
     <img src="https://logo.svgcdn.com/l/django.svg" alt="Django" height="95"/>
   </p>
@@ -8,7 +8,7 @@
   <h1>Django Portfolio Template</h1>
 
   <p>
-    A production-ready Django template for personal portfolio websites. It demonstrates a standardised project structure, containerised development environment, automated task runner, and documentation integration. It is designed to showcase projects, experience, and skills with minimal setup.
+    Production-ready Django template. It demonstrates a standardised project structure, containerised development environment, automated task runner, and documentation integration.
   </p>
 
   <p>
@@ -41,15 +41,6 @@
 
 ## Screenshots
 
-<!-- <details>
-  <summary>Click to expand</summary>
-
-  This content is hidden until you click.
-  You can put **Markdown** here too:
-  - Lists
-  - Code
-</details> -->
-
 <details>
   <summary>Click to expand</summary>
   <!-- Example (uncomment if needed) -->
@@ -57,13 +48,6 @@
     <img src="assets/screenshot1.png" alt="screenshot1" width="800" />
     <img src="assets/screenshot2.png" alt="screenshot2" width="800" />
   </div>
-
-  <!-- Demo (optional, keep commented) -->
-  <!--
-  ## Demo
-  [▶ Watch a short demo](assets/demo-video.mp4)
-  [▶ Watch a short demo](assets/demo-video-small.mp4)
-  -->
 </details>
 
 ## Tech Stack
@@ -76,38 +60,30 @@
 [![Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
-## Features
-
-* Modular Django project structure.
-* Automated environment setup with Taskfile.
-* Integrated documentation with MkDocs.
-* Optional GitFlow workflow tasks.
-* Preconfigured linting and formatting with Ruff.
-
 ## Prerequisites
 
 > [!IMPORTANT]
 > This project uses **Devbox** to provide a consistent development environment.
-
+   
 1. **Install Docker**
    [Docker installation guide](https://docs.docker.com/get-docker/)
-
+   
 2. **Install Devbox**
    [Devbox installation guide](https://www.jetify.com/devbox/docs/installing_devbox/)
-
+   
 3. **Clone the repository**
    ```bash
-   git clone https://github.com/sean-njela/django_template.git
-   cd django_template
+   git clone ...
+   cd ...
    ```
-
+   
 4. **Start Devbox shell**
-
+   
    ```bash
    devbox shell
    ```
-
-  > First run may take several minutes to install tools.
+   
+   > First run may take several minutes to install tools.
 
 ## Quick Start
 
@@ -134,34 +110,20 @@ Then open: [http://127.0.0.1:8030/]()
 > [!IMPORTANT]
 > This project is designed for a simple, one-command setup. All necessary actions are orchestrated through `Taskfile.yml`.
 
-The `Taskfile.gitflow.yml` provides a structured Git workflow using Git Flow. This helps in managing features, releases, and hotfixes in a standardized way. To run these tasks just its the same as running any other task. Using gitflow is optional.
+The `Taskfile.gitflow.yml` provides a structured Git workflow using Git Flow. This helps in managing features, releases, and hotfixes in a standardized way. To run these tasks just its the same as running any other task. Using gitflow is optional. If you do not want the gitflow tasks, you can remove the `Taskfile.gitflow.yml` file and unlink it from the `Taskfile.yml` file (remove the `includes` section). If you cannot find the section use CTRL + F to search for `Taskfile.gitflow.yml`.
 
 To see all tasks:
 
 ```bash
 task --list-all
 ```
-
-If you do not want the gitflow tasks, you can remove the `Taskfile.gitflow.yml` file and unlink it from the `Taskfile.yml` file (remove the `includes` section). If you cannot find the section use CTRL + F to search for `Taskfile.gitflow.yml`.
-
-## NOTES
-
-> Important notes to remember whilst using the project
-
-## Roadmap
-
-* [x] Base project structure
-* [ ] Portfolio UI integration
-* [ ] Multi-language support
-* [ ] Deployment automation
-
 ## Contributing
 
 <a href="https://github.com/sean-njela/django_template/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=sean-njela/django_template" />
 </a>
 
-> Contributions welcome! Open an issue or submit a PR.
+> Contributions are welcome! Open an issue or submit a PR.
 
 ## License
 
