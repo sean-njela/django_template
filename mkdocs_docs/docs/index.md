@@ -49,14 +49,6 @@
 [![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
-## Features
-
-* Modular Django project structure.
-* Automated environment setup with Taskfile.
-* Integrated documentation with MkDocs.
-* Optional GitFlow workflow tasks.
-* Preconfigured linting and formatting with Ruff.
-
 ## Prerequisites
 
 !!! IMPORTANT
@@ -80,7 +72,7 @@
    devbox shell
    ```
 
-  > First run may take several minutes to install tools.
+  > First run may take several minutes to install tools, but subsequent runs spin up in seconds.
 
 ## Quick Start
 
@@ -88,6 +80,7 @@
 task setup
 task status   # check if everything is running
 task dev      # start development stack
+task info     # to list urls to visit
 task cleanup-dev
 ```
 
@@ -106,7 +99,7 @@ Then open: [http://127.0.0.1:8030/]()
 !!! IMPORTANT
     This project is designed for a simple, one-command setup. All necessary actions are orchestrated through `Taskfile.yml`.
 
-The `Taskfile.gitflow.yml` provides a structured Git workflow using Git Flow. This helps in managing features, releases, and hotfixes in a standardized way. To run these tasks just its the same as running any other task. Using gitflow is optional.
+The `Taskfile.gitflow.yml` provides a structured Git workflow using Git Flow. This helps in managing features, releases, and hotfixes in a standardized way. To run these tasks just its the same as running any other task. Using gitflow is optional. If you do not want the gitflow tasks, you can remove the `Taskfile.gitflow.yml` file and unlink it from the `Taskfile.yml` file (remove the `includes` section). If you cannot find the section use CTRL + F to search for `Taskfile.gitflow.yml`.
 
 To see all tasks:
 
@@ -114,15 +107,13 @@ To see all tasks:
 task --list-all
 ```
 
-If you do not want the gitflow tasks, you can remove the `Taskfile.gitflow.yml` file and unlink it from the `Taskfile.yml` file (remove the `includes` section). If you cannot find the section use CTRL + F to search for `Taskfile.gitflow.yml`.
-
 ## Contributing
 
 <a href="https://github.com/sean-njela/django_template/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=sean-njela/django_template" />
 </a>
 
-> Contributions welcome! Open an issue or submit a PR.
+> Contributions are welcome! Open an issue or submit a PR.
 
 ## License
 
