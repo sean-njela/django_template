@@ -83,7 +83,7 @@
    devbox shell
    ```
    
-   > First run may take several minutes to install tools.
+   > First run may take several minutes to install tools, but subsequent runs spin up in seconds.
 
 ## Quick Start
 
