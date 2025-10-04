@@ -3,7 +3,7 @@
 ## Basic Commands
 
 !!! tip
-    If running the stack using docker, `<prefix>` the commands with `docker compose -f docker-compose.local.yml run --rm django python`
+    If running the stack using docker, `<prefix>` all ad-hoc commands with `docker compose -f docker-compose.local.yml run --rm django python`
 
 ### Setting Up Your Users
 
