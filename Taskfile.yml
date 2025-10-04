@@ -147,6 +147,7 @@ tasks:
   cleanup-dev:
     desc: "Cleanup development resources only"
     cmds:
+      - docker compose -f {{.DOCS_COMPOSE_FILE}} down
       - docker compose -f {{.LOCAL_COMPOSE_FILE}} -p {{.LOCAL_PROJECT_NAME}} down
 
   # prod
