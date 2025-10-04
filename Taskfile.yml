@@ -138,22 +138,18 @@ tasks:
       - docker compose -f {{.DOCS_COMPOSE_FILE}} up
 
 # ─── Cleanup Tasks ─────────────────────────────────────────────────────────────
-  # dev
-  compose-down-dev:
-    desc: "Shut down dev containers"
-    cmds:
-      - docker compose -f {{.LOCAL_COMPOSE_FILE}} -p {{.LOCAL_PROJECT_NAME}} down
-
   cleanup-zone:
     desc: "Cleans up all Zone.Identifier files"
     cmds:
       - find . -type f -name "*Zone.Identifier*" -delete
-
+  
+  # dev
   cleanup-dev:
     desc: "Cleanup development resources only"
     cmds:
-      - docker compose -f {{.DOCS_COMPOSE_FILE}} down
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} -p {{.LOCAL_PROJECT_NAME}} down
 
+  # prod
   cleanup-prod:
     desc: "Cleanup production resources only"
 

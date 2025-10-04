@@ -64,25 +64,25 @@
 
 > [!IMPORTANT]
 > This project uses **Devbox** to provide a consistent development environment.
-   
+
 1. **Install Docker**
    [Docker installation guide](https://docs.docker.com/get-docker/)
-   
+
 2. **Install Devbox**
    [Devbox installation guide](https://www.jetify.com/devbox/docs/installing_devbox/)
-   
+
 3. **Clone the repository**
    ```bash
    git clone ...
    cd ...
    ```
-   
+
 4. **Start Devbox shell**
-   
+
    ```bash
    devbox shell
    ```
-   
+
    > First run may take several minutes to install tools, but subsequent runs spin up in seconds.
 
 ## Quick Start
