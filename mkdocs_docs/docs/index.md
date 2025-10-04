@@ -64,6 +64,9 @@
    ```bash
    git clone ...
    cd ...
+
+   sudo apt-get update
+   sudo apt-get install -y libpq-dev python3-dev build-essential pkg-config
    ```
 
 4. **Start Devbox shell**
