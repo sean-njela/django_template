@@ -54,7 +54,6 @@ vars:
   DOCS_COMPOSE_FILE: docker-compose.docs.yml
   LOCAL_COMPOSE_FILE: docker-compose.local.yml
   PROD_COMPOSE_FILE: docker-compose.production.yml
-  LOCAL_PROJECT_NAME: local
   # ports
   MKDOCS_PORT: 0.0.0.0:8030
   # urls
@@ -80,16 +79,16 @@ tasks:
     desc: "Setup environment: install dependencies, generate config etc."
     cmds:
       - pre-commit install
-      - docker compose -f {{.LOCAL_COMPOSE_FILE}} -p {{.LOCAL_PROJECT_NAME}} up -d
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} up -d
 
 # ─── Environment Management ────────────────────────────────────────────────────
   dev:
     desc: "Provision and start local development environment"
     cmds:
-      - docker compose -f {{.LOCAL_COMPOSE_FILE}} -p {{.LOCAL_PROJECT_NAME}} run --rm django python manage.py makemigrations
-      - docker compose -f {{.LOCAL_COMPOSE_FILE}} -p {{.LOCAL_PROJECT_NAME}} run --rm django python manage.py migrate
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} run --rm django python manage.py makemigrations
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} run --rm django python manage.py migrate
       - |
-        docker compose -f {{.LOCAL_COMPOSE_FILE}} -p {{.LOCAL_PROJECT_NAME}} run --rm \
+        docker compose -f {{.LOCAL_COMPOSE_FILE}} run --rm \
           -e DJANGO_SUPERUSER_USERNAME=admin \
           -e DJANGO_SUPERUSER_EMAIL=admin@admin.com \
           -e DJANGO_SUPERUSER_PASSWORD=admin123 \
@@ -111,7 +110,7 @@ tasks:
   status:
     desc: "Check if everything is running"
     cmds:
-      - docker ps --filter "label=com.docker.compose.project={{.LOCAL_PROJECT_NAME}}"
+      - docker ps -a
 
   versions:
     desc: "List current deployed versions"
@@ -128,17 +127,17 @@ tasks:
   pytest:
     desc: "Run pytest in docker"
     cmds:
-      - docker compose -f {{.LOCAL_COMPOSE_FILE}} -p {{.LOCAL_PROJECT_NAME}} run --rm django uv run pytest
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} run --rm django uv run pytest
 
   collectstatic:
     desc: "Runs collect static"
     cmds:
-      - docker compose -f {{.LOCAL_COMPOSE_FILE}} -p {{.LOCAL_PROJECT_NAME}} run --rm django python manage.py collectstatic --noinput
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} run --rm django python manage.py collectstatic --noinput
 
   restart:
     desc: "Restart Django"
     cmds:
-      - docker compose -f {{.LOCAL_COMPOSE_FILE}} -p {{.LOCAL_PROJECT_NAME}} restart django
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} restart django
 
 # ─── System Management ─────────────────────────────────────────────────────────
   ports:
@@ -169,7 +168,7 @@ tasks:
     desc: "Cleanup development resources only"
     cmds:
       - docker compose -f {{.DOCS_COMPOSE_FILE}} down
-      - docker compose -f {{.LOCAL_COMPOSE_FILE}} -p {{.LOCAL_PROJECT_NAME}} down
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} down
       - docker compose -f {{.DOCS_COMPOSE_FILE}} down
 
   # prod
