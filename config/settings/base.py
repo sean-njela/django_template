@@ -399,7 +399,7 @@ FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 # changelog-0.7.0
 CRISPY_ALLOWED_TEMPLATE_PACKS = ["bootstrap5", "unfold_crispy"]
 # Use Bootstrap by default.
-CRISPY_TEMPLATE_PACK = "unfold_crispy"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # FIXTURES
 # ------------------------------------------------------------------------------
