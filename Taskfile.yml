@@ -86,6 +86,7 @@ tasks:
   dev:
     desc: "Provision and start local development environment"
     cmds:
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} -p {{.LOCAL_PROJECT_NAME}} run --rm django python manage.py makemigrations
       - docker compose -f {{.LOCAL_COMPOSE_FILE}} -p {{.LOCAL_PROJECT_NAME}} run --rm django python manage.py migrate
       - |
         docker compose -f {{.LOCAL_COMPOSE_FILE}} -p {{.LOCAL_PROJECT_NAME}} run --rm \
@@ -122,6 +123,22 @@ tasks:
     desc: "Run all precommit rules"
     cmds:
       -  pre-commit run --all-files
+
+# ─── django ────────────────────────────────────────────────────
+  pytest:
+    desc: "Run pytest in docker"
+    cmds:
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} -p {{.LOCAL_PROJECT_NAME}} run --rm django uv run pytest
+
+  collectstatic:
+    desc: "Runs collect static"
+    cmds:
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} -p {{.LOCAL_PROJECT_NAME}} run --rm django python manage.py collectstatic --noinput
+
+  restart:
+    desc: "Restart Django"
+    cmds:
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} -p {{.LOCAL_PROJECT_NAME}} restart django
 
 # ─── System Management ─────────────────────────────────────────────────────────
   ports:

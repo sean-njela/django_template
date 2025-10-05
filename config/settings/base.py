@@ -6,6 +6,12 @@ from pathlib import Path
 
 import environ
 
+# UNFOLD CONFIGURATION
+# ------------------------------------------------------------------------------
+from django.templatetags.static import static
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
+
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # django_template/
 APPS_DIR = BASE_DIR / "django_template"
@@ -26,18 +32,20 @@ DEBUG = env.bool("DJANGO_DEBUG", False)
 # In Windows, this must be set to your system time zone.
 TIME_ZONE = "UTC"
 # https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "en"  # changelog-0.7.0
 # https://docs.djangoproject.com/en/dev/ref/settings/#languages
 # from django.utils.translation import gettext_lazy as _
-# LANGUAGES = [
-#     ('en', _('English')),
-#     ('fr-fr', _('French')),
-#     ('pt-br', _('Portuguese')),
-# ]
+# changelog-0.7.0
+LANGUAGES = [
+    ("en", _("English")),
+    ("pl", _("Polish")),
+    ("de", _("German")),
+]
 # https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n
 USE_I18N = True
+# changelog-0.7.0
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#locale-paths
@@ -58,6 +66,20 @@ ROOT_URLCONF = "config.urls"
 # https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = "config.wsgi.application"
 
+# UNFOLD
+# ------------------------------------------------------------------------------
+# Modern Django admin interface built with Tailwind CSS.
+UNFOLD_APPS = [
+    "unfold",  # Core Unfold theme and admin UI replacement
+    "unfold.contrib.filters",  # Advanced sidebar filters with form inputs
+    "unfold.contrib.forms",  # Styled form widgets matching Unfold theme
+    "unfold.contrib.inlines",  # Collapsible and tabbed inlines in admin
+    "unfold.contrib.import_export",  # Integration with django-import-export
+    "unfold.contrib.guardian",  # Integration with django-guardian (object permissions)
+    "unfold.contrib.simple_history",  # Integration with django-simple-history
+    "unfold.contrib.location_field",  # Integration with django-location-field
+    "unfold.contrib.constance",  # Integration with django-constance (dynamic settings)
+]
 # APPS
 # ------------------------------------------------------------------------------
 DJANGO_APPS = [
@@ -84,13 +106,186 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     "drf_spectacular",
 ]
-
 LOCAL_APPS = [
     "django_template.users",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = UNFOLD_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+# UNFOLD CONFIGURATION
+# ------------------------------------------------------------------------------
+UNFOLD = {
+    "SITE_TITLE": "Django Template Admin",
+    "SITE_HEADER": "Django Template",
+    "SITE_SUBHEADER": "Administration Panel",
+    "SITE_DROPDOWN": [
+        {
+            "icon": "diamond",
+            "title": _("Website"),
+            "link": "https://devopssean.netlify.app",
+        },
+        {
+            "icon": "code",
+            "title": _("Source"),
+            "link": "https://github.com/sean-njela/django_template/",
+        },
+    ],
+    "SITE_URL": "/",
+    "SHOW_LANGUAGES": True,  # changelog-0.7.0
+    "LANGUAGES": {
+        "navigation": [
+            {
+                "bidi": False,
+                "code": "en",
+                "name": "English",
+                "name_local": "English",
+                "name_translated": _("English"),
+            },
+            {
+                "bidi": False,
+                "code": "pl",
+                "name": "Polish",
+                "name_local": "Polski",
+                "name_translated": _("Polish"),
+            },
+            {
+                "bidi": False,
+                "code": "de",
+                "name": "German",
+                "name_local": "Deutsch",
+                "name_translated": _("German"),
+            },
+        ],
+    },
+    # "SITE_ICON": {
+    #     "light": lambda request: static("icons/icon-light.svg"),
+    #     "dark": lambda request: static("icons/icon-dark.svg"),
+    # },
+    # "SITE_LOGO": {
+    #     "light": lambda request: static("icons/logo-light.svg"),
+    #     "dark": lambda request: static("icons/logo-dark.svg"),
+    # },
+    # "SITE_SYMBOL": "speed",
+    # "SITE_FAVICONS": [
+    #     {
+    #         "rel": "icon",
+    #         "sizes": "32x32",
+    #         "type": "image/svg+xml",
+    #         "href": lambda request: static("icons/favicon.svg"),
+    #     },
+    # ],
+    "SHOW_HISTORY": True,
+    "SHOW_VIEW_ON_SITE": True,
+    "SHOW_BACK_BUTTON": True,
+    "ENVIRONMENT": "django_template.admin_config.environment_callback",
+    "ENVIRONMENT_TITLE_PREFIX": "django_template.admin_config.environment_title_prefix_callback",
+    "DASHBOARD_CALLBACK": "django_template.admin_config.dashboard_callback",
+    "THEME": None,  # leave toggle on
+    "THEME_DEFAULT": "dark",  # Unfold uses this as the initial preference
+    "LOGIN": {
+        "image": lambda request: static("img/login-bg.jpg"),
+        "redirect_after": lambda request: reverse_lazy("admin:index"),
+    },
+    "STYLES": [
+        lambda request: static("css/custom-admin.css"),
+    ],
+    "SCRIPTS": [
+        lambda request: static("js/custom-admin.js"),
+    ],
+    "BORDER_RADIUS": "10px",
+    "COLORS": {
+        # Neutral base for light and dark mode
+        "base": {
+            # Light mode (backgrounds, cards, borders)
+            "50": "#FAF7F5",  # Page background (light)
+            "100": "#F3F0EE",  # Card background (light)
+            "200": "#E6E2DF",  # Border (light)
+            "300": "#D0CCC8",  # Muted areas
+            # Dark mode (dropdowns, panels, main background)
+            "700": "#222222",  # Panel / dropdown background
+            "800": "#1C1C1C",  # Card background (dark)
+            "900": "#171717",  # Page background (dark)
+            "950": "#101010",  # Deep dark tone
+        },
+        # Primary (Sky blue accent)
+        "primary": {
+            "50": "#E0F4FF",
+            "100": "#B8E3FF",
+            "200": "#8AD1FF",
+            "300": "#5BBEFF",
+            "400": "#37B0F8",
+            "500": "#2AA5F4",  # main accent
+            "600": "#198CD7",
+            "700": "#1479BE",
+            "800": "#0F66A5",
+            "900": "#0B548C",
+        },
+        # Text colour scaling for contrast control
+        "font": {
+            # Light mode text
+            "subtle-light": "#666666",
+            "default-light": "#222222",
+            "important-light": "#000000",
+            # Dark mode text
+            "subtle-dark": "#9D9D9D",
+            "default-dark": "#EDEDED",
+            "important-dark": "#FFFFFF",
+        },
+    },
+    "EXTENSIONS": {
+        "modeltranslation": {
+            "flags": {
+                "en": "🇬🇧",
+                "pl": "🇵🇱",
+                "de": "🇩🇪",
+            },
+        },
+    },
+    "SIDEBAR": {
+        "show_search": True,
+        "command_search": False,
+        "show_all_applications": True,
+        "navigation": [
+            {
+                "title": _("Navigation"),
+                "separator": True,
+                "collapsible": True,
+                "items": [
+                    {
+                        "title": _("Dashboard"),
+                        "icon": "dashboard",
+                        "link": reverse_lazy("admin:index"),
+                        "badge": "django_template.admin_config.badge_callback",
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": _("Users"),
+                        "icon": "people",
+                        "link": reverse_lazy("admin:users_user_changelist"),
+                    },
+                    {
+                        "title": _("Groups"),
+                        "icon": "group",
+                        "link": reverse_lazy("admin:auth_group_changelist"),
+                    },
+                ],
+            },
+        ],
+    },
+    "TABS": [
+        {
+            "models": ["users.user"],
+            "items": [
+                {
+                    "title": _("User Management"),
+                    "link": reverse_lazy("admin:users_user_changelist"),
+                    "permission": "django_template.admin_config.permission_callback",
+                },
+            ],
+        },
+    ],
+}
 
 # MIGRATIONS
 # ------------------------------------------------------------------------------
@@ -201,8 +396,10 @@ TEMPLATES = [
 FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 
 # http://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
-CRISPY_TEMPLATE_PACK = "bootstrap5"
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+# changelog-0.7.0
+CRISPY_ALLOWED_TEMPLATE_PACKS = ["bootstrap5", "unfold_crispy"]
+# Use Unfold by default (admin). Bootstrap forms will explicitly use 'bootstrap5' where needed.
+CRISPY_TEMPLATE_PACK = "unfold_crispy"
 
 # FIXTURES
 # ------------------------------------------------------------------------------
