@@ -1,0 +1,6 @@
+venv
+.venv
+static
+node_modules
+docs
+docs/_build
