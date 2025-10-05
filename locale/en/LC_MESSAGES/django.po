@@ -1,0 +1,105 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-04 22:12+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: config/settings/base.py:40 config/settings/base.py:144
+msgid "English"
+msgstr ""
+
+#: config/settings/base.py:41 config/settings/base.py:151
+msgid "Polish"
+msgstr ""
+
+#: config/settings/base.py:42 config/settings/base.py:158
+msgid "German"
+msgstr ""
+
+#: config/settings/base.py:126
+msgid "Website"
+msgstr ""
+
+#: config/settings/base.py:131
+msgid "Source"
+msgstr ""
+
+#: config/settings/base.py:248
+msgid "Navigation"
+msgstr ""
+
+#: config/settings/base.py:253
+msgid "Dashboard"
+msgstr ""
+
+#: config/settings/base.py:260 django_template/users/apps.py:9
+msgid "Users"
+msgstr ""
+
+#: config/settings/base.py:265
+msgid "Groups"
+msgstr ""
+
+#: config/settings/base.py:278
+msgid "User Management"
+msgstr ""
+
+#: django_template/templates/allauth/layouts/entrance.html:13
+#: django_template/templates/base.html:84
+msgid "Sign In"
+msgstr ""
+
+#: django_template/templates/base.html:69
+msgid "My Profile"
+msgstr ""
+
+#: django_template/templates/base.html:73
+msgid "Sign Out"
+msgstr ""
+
+#: django_template/templates/base.html:79
+msgid "Sign Up"
+msgstr ""
+
+#: django_template/users/admin.py:32
+msgid "Personal info"
+msgstr ""
+
+#: django_template/users/admin.py:34
+msgid "Permissions"
+msgstr ""
+
+#: django_template/users/admin.py:45
+msgid "Important dates"
+msgstr ""
+
+#: django_template/users/forms.py:27
+#: django_template/users/tests/test_forms.py:35
+msgid "This email has already been taken."
+msgstr ""
+
+#: django_template/users/models.py:20
+msgid "Name of User"
+msgstr ""
+
+#: django_template/users/models.py:23
+msgid "email address"
+msgstr ""
+
+#: django_template/users/tests/test_views.py:72
+#: django_template/users/views.py:25
+msgid "Information successfully updated"
+msgstr ""
