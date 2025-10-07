@@ -31,7 +31,7 @@ urlpatterns += i18n_patterns(
     path("users/", include("django_template.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
-    # ...
+    path("", include("django_template.apps.web.urls")),
     # Media files
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 )
@@ -40,6 +40,7 @@ urlpatterns += i18n_patterns(
 urlpatterns += [
     # API base url
     path("api/", include("config.api_router")),
+    path("api/", include("django_template.apps.api.urls")),
     # DRF auth token
     path("api/auth-token/", obtain_auth_token, name="obtain_auth_token"),
     path("api/schema/", SpectacularAPIView.as_view(), name="api-schema"),
