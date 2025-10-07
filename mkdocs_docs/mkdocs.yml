@@ -159,6 +159,7 @@ nav:
       # etc.
   - Changelog:
       - Changelog 0.7.0: 2-project/changelog/changelog-0.7.0.md
+      - Changelog 0.8.0: 2-project/changelog/changelog-0.8.0.md
   - Tasks:
       - Tasks: 2-project/tasks/0-overview.md
       - Main Taskfile: 2-project/tasks/1-main-taskfile.md

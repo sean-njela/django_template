@@ -1,0 +1,8 @@
+{% load tz %}
+
+<tr id="user-{{ u.id }}">
+  <td>{{ u.id }}</td>
+  <td>{{ u.email }}</td>
+  <td>{{ u.name|default:"—" }}</td>
+  <td>Updated {% now "H:i:s" %}</td>
+</tr>
