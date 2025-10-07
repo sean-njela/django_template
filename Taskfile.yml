@@ -127,7 +127,7 @@ tasks:
   pytest:
     desc: "Run pytest in docker"
     cmds:
-      - docker compose -f {{.LOCAL_COMPOSE_FILE}} run --rm django uv run pytest
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} run --rm django uv run pytest .
 
   collectstatic:
     desc: "Runs collect static"
