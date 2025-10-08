@@ -182,6 +182,7 @@ dependencies = [
     "django-import-export>=4.3.10",
     "django-location-field>=2.7.3",
     "django-model-utils==5.0.0",
+    "django-modeltranslation>=0.19.17",
     "django-redis==6.0.0",
     "django-simple-history>=3.10.1",
     "django-storages[s3]==1.14.6",

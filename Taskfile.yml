@@ -134,6 +134,11 @@ tasks:
     cmds:
       - docker compose -f {{.LOCAL_COMPOSE_FILE}} run --rm django python manage.py collectstatic --noinput
 
+  check:
+    desc: "Runs a syntax check"
+    cmds:
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} run --rm django python manage.py check
+
   restart:
     desc: "Restart Django"
     cmds:

@@ -1,6 +1,4 @@
 # ruff: noqa: ERA001, E501
-"""Base settings to build other settings files upon."""
-
 import ssl
 from pathlib import Path
 
@@ -8,7 +6,6 @@ import environ
 
 # UNFOLD CONFIGURATION
 # ------------------------------------------------------------------------------
-from django.templatetags.static import static
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
@@ -79,6 +76,7 @@ UNFOLD_APPS = [
     "unfold.contrib.simple_history",  # Integration with django-simple-history
     "unfold.contrib.location_field",  # Integration with django-location-field
     "unfold.contrib.constance",  # Integration with django-constance (dynamic settings)
+    "location_field.apps.DefaultConfig",
 ]
 # APPS
 # ------------------------------------------------------------------------------
@@ -105,6 +103,8 @@ THIRD_PARTY_APPS = [
     "rest_framework.authtoken",
     "corsheaders",
     "drf_spectacular",
+    # Your stuff:
+    "import_export",
 ]
 LOCAL_APPS = [
     "django_template.users",
@@ -118,15 +118,30 @@ INSTALLED_APPS = UNFOLD_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 # UNFOLD CONFIGURATION
 # ------------------------------------------------------------------------------
+#
+# Configuration dictionary controlling all Unfold admin interface options.
+
+# This section defines Unfolds behaviour, UI appearance, and feature extensions.
+# Each setting affects different aspects of the admin — from theming and layout
+# to integrations, language switching, and sidebar navigation.
+
+# The configuration is declarative, allowing Unfold to dynamically adapt the
+# admin without manual HTML or template overrides.
+#
+
 UNFOLD = {
-    "SITE_TITLE": "Django Template Admin",
-    "SITE_HEADER": "Django Template",
-    "SITE_SUBHEADER": "Administration Panel",
+    # ------------------------------------------------------------------
+    # Site Identity and Branding
+    # ------------------------------------------------------------------
+    "SITE_TITLE": "Django Template Admin",  # Page title (HTML <title> tag)
+    "SITE_HEADER": "Django Template",  # Main heading in admin UI
+    "SITE_SUBHEADER": "Administration Panel",  # Secondary title displayed under the header
+    # Dropdown links available in the admins header bar
     "SITE_DROPDOWN": [
         {
-            "icon": "diamond",
-            "title": _("Website"),
-            "link": "https://devopssean.netlify.app",
+            "icon": "diamond",  # Icon displayed in the dropdown
+            "title": _("Website"),  # Label shown to users
+            "link": "https://devopssean.netlify.app",  # External link
         },
         {
             "icon": "code",
@@ -134,15 +149,19 @@ UNFOLD = {
             "link": "https://github.com/sean-njela/django_template/",
         },
     ],
-    "SITE_URL": "/",
-    "SHOW_LANGUAGES": True,  # changelog-0.7.0
+    "SITE_URL": "/",  # Root admin URL
+    "SHOW_LANGUAGES": True,  # Displays language selector in the header
+    # ------------------------------------------------------------------
+    # Language Configuration
+    # ------------------------------------------------------------------
     "LANGUAGES": {
+        # Controls which languages appear in the navigation dropdown
         "navigation": [
             {
-                "bidi": False,
+                "bidi": False,  # Indicates whether text direction is bidirectional
                 "code": "en",
                 "name": "English",
-                "name_local": "English",
+                "name_local": "English",  # Localised self-name
                 "name_translated": _("English"),
             },
             {
@@ -161,6 +180,10 @@ UNFOLD = {
             },
         ],
     },
+    # ------------------------------------------------------------------
+    # Visual Branding (optional icons and logos)
+    # ------------------------------------------------------------------
+    # Example usage:
     # "SITE_ICON": {
     #     "light": lambda request: static("icons/icon-light.svg"),
     #     "dark": lambda request: static("icons/icon-dark.svg"),
@@ -178,131 +201,189 @@ UNFOLD = {
     #         "href": lambda request: static("icons/favicon.svg"),
     #     },
     # ],
-    "SHOW_HISTORY": True,
-    "SHOW_VIEW_ON_SITE": True,
-    "SHOW_BACK_BUTTON": True,
+    # ------------------------------------------------------------------
+    # Core Admin Behaviour Toggles
+    # ------------------------------------------------------------------
+    "SHOW_HISTORY": True,  # Enables object change history tracking
+    "SHOW_VIEW_ON_SITE": True,  # Adds "View on site" link for objects
+    "SHOW_BACK_BUTTON": True,  # Adds a back button in form views
+    # Dynamic callbacks loaded from django_template/admin_config.py
+    # These are Python import paths to callable functions.
     "ENVIRONMENT": "django_template.admin_config.environment_callback",
     "ENVIRONMENT_TITLE_PREFIX": "django_template.admin_config.environment_title_prefix_callback",
     "DASHBOARD_CALLBACK": "django_template.admin_config.dashboard_callback",
-    "THEME": None,  # leave toggle on
-    "THEME_DEFAULT": "dark",  # Unfold uses this as the initial preference
-    "LOGIN": {
-        "image": lambda request: static("img/login-bg.jpg"),
-        "redirect_after": lambda request: reverse_lazy("admin:index"),
-    },
-    "STYLES": [
-        lambda request: static("css/custom-admin.css"),
-    ],
-    "SCRIPTS": [
-        lambda request: static("js/custom-admin.js"),
-    ],
-    "BORDER_RADIUS": "10px",
+    # ------------------------------------------------------------------
+    # Theme and UI Customisation
+    # ------------------------------------------------------------------
+    "THEME": None,  # Allows user toggle between light/dark themes
+    "THEME_DEFAULT": "dark",  # Default visual mode if user preference not set
+    "BORDER_RADIUS": "4px",  # Base corner rounding applied to all UI components
+    # Optional theme-level overrides for custom CSS or JS
+    # "LOGIN": {
+    #     "image": lambda request: static("img/login-bg.jpg"),
+    #     "redirect_after": lambda request: reverse_lazy("admin:index"),
+    # },
+    # "STYLES": [
+    #     lambda request: static("css/custom-admin.css"),
+    # ],
+    # "SCRIPTS": [
+    #     lambda request: static("js/custom-admin.js"),
+    # ],
+    # ------------------------------------------------------------------
+    # Custom Colour Palette
+    # ------------------------------------------------------------------
+    # Defines Tailwind-compatible RGB colour variables used by Unfold.
+    # Each key represents a semantic colour group (base, primary, warning, etc.).
     "COLORS": {
+        # ------------------------------------------------------------------
+        # Base Neutral Palette
+        # ------------------------------------------------------------------
+        # Neutral greys used for backgrounds, borders, and layout structure.
+        # 50-300: light background shades.
+        # 700-950: dark neutral tones for contrast and dark mode.
         "base": {
-            "50": "255 255 255",
-            "100": "255 255 255",
-            "200": "237 237 237",
-            "300": "219 219 219",
-            "700": "64 64 64",
-            "800": "54 54 54",
-            "900": "46 46 46",
-            "950": "28 28 28",
+            "50": "235 235 235",  # Very light grey, primary background (light mode)
+            "100": "230 230 230",  # Slightly darker base background
+            "200": "220 220 220",  # Border or divider tone
+            "300": "210 210 210",  # Muted section divider
+            "700": "65 65 65",  # Mid-dark neutral for dark mode elements
+            "800": "55 55 55",  # Darker surface tone in dark mode
+            "900": "45 45 45",  # Main dark background tone
+            "950": "35 35 35",  # Deep black-grey for dark mode base
         },
+        # ------------------------------------------------------------------
+        # Primary Palette
+        # ------------------------------------------------------------------
+        # Used for brand accents, primary buttons, and key interactive elements.
+        # Represents cool blue tones.
         "primary": {
-            "50": "235 240 255",
-            "100": "220 230 255",
-            "200": "200 215 255",
-            "300": "175 195 255",
-            "400": "140 160 255",
-            "500": "110 135 255",
-            "600": "90 120 230",
-            "700": "75 100 200",
-            "800": "60 80 160",
-            "900": "45 65 130",
+            "50": "235 240 255",  # Ultra light blue tint (hover backgrounds)
+            "100": "220 230 255",  # Light hover or subtle highlight
+            "200": "200 215 255",  # Input focus border
+            "300": "175 195 255",  # Secondary button hover
+            "400": "140 160 255",  # Button background
+            "500": "110 135 255",  # Primary brand colour
+            "600": "90 120 230",  # Slightly darker for active states
+            "700": "75 100 200",  # Focus ring or strong borders
+            "800": "60 80 160",  # Deep accent for dark mode
+            "900": "45 65 130",  # Text or border accent (dark mode)
         },
+        # ------------------------------------------------------------------
+        # Secondary Palette
+        # ------------------------------------------------------------------
+        # Soft purple-grey tones for secondary UI highlights or muted branding.
         "secondary": {
-            "50": "240 230 240",
-            "100": "225 210 225",
-            "200": "200 185 200",
-            "300": "175 155 175",
-            "400": "150 130 150",
-            "500": "130 110 130",
-            "600": "105 90 105",
-            "700": "85 70 85",
-            "800": "60 45 60",
-            "900": "40 30 40",
+            "50": "240 230 240",  # Light lavender background
+            "100": "225 210 225",  # Subtle secondary hover
+            "200": "200 185 200",  # Input borders or secondary focus
+            "300": "175 155 175",  # Muted divider or background
+            "400": "150 130 150",  # Secondary hover active state
+            "500": "130 110 130",  # Main secondary tone
+            "600": "105 90 105",  # Muted dark purple for text
+            "700": "85 70 85",  # Darker version for dark mode
+            "800": "60 45 60",  # Deep background
+            "900": "40 30 40",  # Very dark neutral purple
         },
+        # ------------------------------------------------------------------
+        # Accent Palette
+        # ------------------------------------------------------------------
+        # Soft desaturated blue-grey tones used for subtle decorative accents.
         "accent": {
-            "50": "230 240 245",
-            "100": "215 230 240",
-            "200": "190 210 225",
-            "300": "160 180 200",
-            "400": "135 155 175",
-            "500": "115 135 155",
-            "600": "95 115 130",
-            "700": "75 90 105",
-            "800": "60 70 85",
-            "900": "45 50 65",
+            "50": "230 240 245",  # Very light bluish-grey background
+            "100": "215 230 240",  # Highlight box background
+            "200": "190 210 225",  # Accent background shading
+            "300": "160 180 200",  # Muted blue-grey borders
+            "400": "135 155 175",  # Hover highlight
+            "500": "115 135 155",  # Main accent tone
+            "600": "95 115 130",  # Slightly darker hover colour
+            "700": "75 90 105",  # Text for disabled elements
+            "800": "60 70 85",  # Deep accent for dark mode
+            "900": "45 50 65",  # Dark background contrast
         },
+        # ------------------------------------------------------------------
+        # Success Palette
+        # ------------------------------------------------------------------
+        # Shades of green for positive feedback, confirmation messages, and success states.
         "success": {
-            "50": "200 240 200",
-            "100": "170 220 170",
-            "200": "140 200 140",
-            "300": "110 180 110",
-            "400": "85 160 85",
-            "500": "65 135 65",
-            "600": "50 110 50",
-            "700": "40 90 40",
-            "800": "30 70 30",
-            "900": "20 50 20",
+            "50": "200 240 200",  # Light green background for success alerts
+            "100": "170 220 170",  # Subtle green tint
+            "200": "140 200 140",  # Confirm state highlight
+            "300": "110 180 110",  # Hover background for success button
+            "400": "85 160 85",  # Mid-tone green
+            "500": "65 135 65",  # Default success colour
+            "600": "50 110 50",  # Active/pressed state
+            "700": "40 90 40",  # Text in dark mode success state
+            "800": "30 70 30",  # Deep success background
+            "900": "20 50 20",  # Very dark green for emphasis
         },
+        # ------------------------------------------------------------------
+        # Info Palette
+        # ------------------------------------------------------------------
+        # Blue tones for informational messages and neutral notifications.
         "info": {
-            "50": "200 220 240",
-            "100": "170 200 230",
-            "200": "140 180 220",
-            "300": "110 150 200",
-            "400": "90 125 180",
-            "500": "70 100 160",
-            "600": "55 80 140",
-            "700": "40 60 110",
-            "800": "30 45 85",
-            "900": "20 30 60",
+            "50": "200 220 240",  # Light blue background for info alerts
+            "100": "170 200 230",  # Hover state
+            "200": "140 180 220",  # Light info border
+            "300": "110 150 200",  # Mid-tone background
+            "400": "90 125 180",  # Info button hover
+            "500": "70 100 160",  # Main info colour
+            "600": "55 80 140",  # Active state
+            "700": "40 60 110",  # Text or accent border
+            "800": "30 45 85",  # Dark background info tone
+            "900": "20 30 60",  # Deep info contrast
         },
+        # ------------------------------------------------------------------
+        # Warning Palette
+        # ------------------------------------------------------------------
+        # Yellow-orange tones used for cautionary messages or alerts.
         "warning": {
-            "50": "255 245 200",
-            "100": "255 230 170",
-            "200": "255 210 140",
-            "300": "255 190 110",
-            "400": "240 160 80",
-            "500": "220 130 60",
-            "600": "190 100 45",
-            "700": "160 80 30",
-            "800": "120 60 20",
-            "900": "90 40 15",
+            "50": "255 245 200",  # Very light yellow warning background
+            "100": "255 230 170",  # Hover highlight
+            "200": "255 210 140",  # Border highlight
+            "300": "255 190 110",  # Warning hover background
+            "400": "240 160 80",  # Mid-tone amber
+            "500": "220 130 60",  # Default warning colour
+            "600": "190 100 45",  # Active pressed state
+            "700": "160 80 30",  # Strong amber for dark mode
+            "800": "120 60 20",  # Deep tone for contrast
+            "900": "90 40 15",  # Dark warning background
         },
+        # ------------------------------------------------------------------
+        # Error Palette
+        # ------------------------------------------------------------------
+        # Red tones for error messages, form validation, and destructive actions.
         "error": {
-            "50": "240 200 200",
-            "100": "230 170 170",
-            "200": "215 140 140",
-            "300": "190 110 110",
-            "400": "160 85 85",
-            "500": "135 65 65",
-            "600": "110 50 50",
-            "700": "90 40 40",
-            "800": "65 30 30",
-            "900": "45 20 20",
+            "50": "240 200 200",  # Light red alert background
+            "100": "230 170 170",  # Subtle red tint
+            "200": "215 140 140",  # Border or notification colour
+            "300": "190 110 110",  # Button hover or form error
+            "400": "160 85 85",  # Main red tone
+            "500": "135 65 65",  # Primary error colour
+            "600": "110 50 50",  # Active/pressed error state
+            "700": "90 40 40",  # Dark text on light backgrounds
+            "800": "65 30 30",  # Dark background error accent
+            "900": "45 20 20",  # Deep error background
         },
+        # ------------------------------------------------------------------
+        # Font Palette
+        # ------------------------------------------------------------------
+        # Defines font colour contrast in both light and dark themes.
         "font": {
-            "subtle-light": "120 120 120",
-            "default-light": "0 0 0",
-            "important-light": "0 0 0",
-            "subtle-dark": "170 170 170",
-            "default-dark": "240 240 240",
-            "important-dark": "255 255 255",
+            "subtle-light": "120 120 120",  # Secondary text on light background
+            "default-light": "0 0 0",  # Standard dark text for light theme
+            "important-light": "0 0 0",  # Emphasised text in light mode
+            "subtle-dark": "170 170 170",  # Secondary text for dark backgrounds
+            "default-dark": "240 240 240",  # Default light text in dark mode
+            "important-dark": "255 255 255",  # Brightest text colour for contrast
         },
     },
+    # ------------------------------------------------------------------
+    # Plugin Extensions
+    # ------------------------------------------------------------------
+    # Enables Unfolds integrations with third-party libraries.
     "EXTENSIONS": {
         "modeltranslation": {
+            # Maps language codes to emoji flags used in translation tabs
             "flags": {
                 "en": "🇬🇧",
                 "pl": "🇵🇱",
@@ -310,15 +391,20 @@ UNFOLD = {
             },
         },
     },
+    # ------------------------------------------------------------------
+    # Sidebar Navigation
+    # ------------------------------------------------------------------
+    # Controls visibility, search, and hierarchical structure of the admin sidebar.
     "SIDEBAR": {
-        "show_search": True,
-        "command_search": False,
-        "show_all_applications": True,
+        "show_search": True,  # Enables the sidebar search bar
+        "command_search": False,  # Disables command palette shortcut
+        "show_all_applications": True,  # Displays all Django apps by default
+        # Custom navigation items organised under labelled sections
         "navigation": [
             {
                 "title": _("Navigation"),
-                "separator": True,
-                "collapsible": True,
+                "separator": True,  # Adds a visual separator line
+                "collapsible": True,  # Allows section collapse/expand
                 "items": [
                     {
                         "title": _("Dashboard"),
@@ -341,9 +427,13 @@ UNFOLD = {
             },
         ],
     },
+    # ------------------------------------------------------------------
+    # Tabbed Navigation
+    # ------------------------------------------------------------------
+    # Defines context-aware tabs for specific model admin views.
     "TABS": [
         {
-            "models": ["users.user"],
+            "models": ["users.user"],  # Applies to the User model admin
             "items": [
                 {
                     "title": _("User Management"),
