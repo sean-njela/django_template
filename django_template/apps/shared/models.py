@@ -6,6 +6,7 @@ date and time fields, file uploads, PostgreSQL-specific array and JSON fields,
 and map-based location selection via django-location-field.
 """
 
+from auditlog.registry import auditlog
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -207,3 +208,12 @@ class UnfoldDemoModel(models.Model):
     def __str__(self):
         """Return the title for admin list display and string conversions."""
         return self.title
+
+
+auditlog.register(
+    UnfoldDemoModel,
+    exclude_fields=["published_on", "publish_time", "last_reviewed_at"],
+    mapping_fields={"title": "Name"},
+    mask_fields=["address", "location"],
+)
+auditlog.register(DemoCategory)

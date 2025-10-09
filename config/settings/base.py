@@ -103,8 +103,25 @@ THIRD_PARTY_APPS = [
     "rest_framework.authtoken",
     "corsheaders",
     "drf_spectacular",
+    # wagtail
+    "wagtail.contrib.forms",
+    "wagtail.contrib.redirects",
+    "wagtail.embeds",
+    "wagtail.sites",
+    "wagtail.users",
+    "wagtail.snippets",
+    "wagtail.documents",
+    "wagtail.images",
+    "wagtail.search",
+    "wagtail.admin",
+    "wagtail",
+    "modelcluster",
+    "taggit",
     # Your stuff:
     "import_export",
+    "schema_viewer",
+    "auditlog",
+    "data_browser",
 ]
 LOCAL_APPS = [
     "django_template.users",
@@ -404,7 +421,7 @@ UNFOLD = {
             {
                 "title": _("Navigation"),
                 "separator": True,  # Adds a visual separator line
-                "collapsible": True,  # Allows section collapse/expand
+                "collapsible": False,  # Allows section collapse/expand
                 "items": [
                     {
                         "title": _("Dashboard"),
@@ -499,6 +516,10 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    # auditlog
+    "auditlog.middleware.AuditlogMiddleware",
+    # wagtail
+    "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
 # STATIC
@@ -524,6 +545,24 @@ STATICFILES_FINDERS = [
 MEDIA_ROOT = str(APPS_DIR / "media")
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = "/media/"
+
+# WAGTAIL
+# https://docs.wagtail.org/en/stable/getting_started/integrating_into_django.html
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10_000
+WAGTAIL_SITE_NAME = "My Example Site"
+WAGTAILADMIN_BASE_URL = "http://example.com"
+WAGTAILDOCS_EXTENSIONS = [
+    "csv",
+    "docx",
+    "key",
+    "odt",
+    "pdf",
+    "pptx",
+    "rtf",
+    "txt",
+    "xlsx",
+    "zip",
+]
 
 # TEMPLATES
 # ------------------------------------------------------------------------------

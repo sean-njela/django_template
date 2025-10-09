@@ -79,7 +79,7 @@ tasks:
     desc: "Setup environment: install dependencies, generate config etc."
     cmds:
       - pre-commit install
-      - docker compose -f {{.LOCAL_COMPOSE_FILE}} up -d
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} up -d --build
 
 # ─── Environment Management ────────────────────────────────────────────────────
   dev:
@@ -91,7 +91,7 @@ tasks:
         docker compose -f {{.LOCAL_COMPOSE_FILE}} run --rm \
           -e DJANGO_SUPERUSER_USERNAME=admin \
           -e DJANGO_SUPERUSER_EMAIL=admin@admin.com \
-          -e DJANGO_SUPERUSER_PASSWORD=admin123 \
+          -e DJANGO_SUPERUSER_PASSWORD=admin1234 \
           django python manage.py createsuperuser --noinput || echo "User exists"
 
   prod:
