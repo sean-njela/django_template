@@ -1,4 +1,4 @@
-exclude: '^docs/|^mkdocs_docs/|/migrations/|devcontainer.json|^Taskfile.*\.yml$'
+exclude: '^docs/|^mkdocs_docs/|/migrations/|devcontainer.json|^Taskfile.*\.yml$|django_template/apps/shared/management/commands/'
 default_stages: [pre-commit]
 minimum_pre_commit_version: "3.2.0"
 

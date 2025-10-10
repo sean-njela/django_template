@@ -122,6 +122,7 @@ THIRD_PARTY_APPS = [
     "schema_viewer",
     "auditlog",
     "data_browser",
+    "django_cotton",  # https://django-cotton.com/docs/quickstart
 ]
 LOCAL_APPS = [
     "django_template.users",

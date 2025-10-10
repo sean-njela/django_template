@@ -143,6 +143,22 @@ tasks:
     desc: "Restart Django"
     cmds:
       - docker compose -f {{.LOCAL_COMPOSE_FILE}} restart django
+    
+  logs:
+    desc: "Restart Django"
+    requires:
+      vars:
+        - n
+    cmds:
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} logs {{.n}}
+
+  run:
+    desc: "Run a command with the docker compose --rm .. stub"
+    requires:
+      vars:
+        - cmd
+    cmds:
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} run --rm django {{.cmd}}
 
 # ─── System Management ─────────────────────────────────────────────────────────
   ports:

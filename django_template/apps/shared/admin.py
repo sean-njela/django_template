@@ -20,8 +20,9 @@ from unfold.contrib.import_export.forms import ImportForm
 from unfold.widgets import UnfoldAdminSelectWidget
 from unfold.widgets import UnfoldAdminTextInputWidget
 
-from .models import DemoCategory
-from .models import UnfoldDemoModel
+from django_template.apps.shared.models.cars.models import Car
+from django_template.apps.shared.models.demo.models import DemoCategory
+from django_template.apps.shared.models.demo.models import UnfoldDemoModel
 
 
 # ---------------------------------------------------------------------
@@ -116,7 +117,7 @@ class UnfoldDemoForm(forms.ModelForm):
 
 
 # ---------------------------------------------------------------------
-# Unfold + ImportExport Admin
+# Unfold Admin Registrations + ImportExport Admin
 # ---------------------------------------------------------------------
 @admin.register(UnfoldDemoModel)
 class UnfoldDemoAdmin(ModelAdmin, ImportExportModelAdmin):
@@ -193,9 +194,16 @@ class UnfoldDemoAdmin(ModelAdmin, ImportExportModelAdmin):
     }
 
 
-# ---------------------------------------------------------------------
-# Category Admin
-# ---------------------------------------------------------------------
+@admin.register(Car)
+class CarAdmin(ModelAdmin):
+    """
+    Basic Unfold admin interface for the Car model.
+
+    Provides a minimal interface demonstrating how Unfold automatically
+    enhances even simple models with clean layout and consistent styling.
+    """
+
+
 @admin.register(DemoCategory)
 class DemoCategoryAdmin(ModelAdmin):
     """
