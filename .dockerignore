@@ -10,3 +10,7 @@
 venv
 .git
 .envs/
+
+.devbox/
+docs/
+mkdocs_docs/

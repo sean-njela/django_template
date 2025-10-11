@@ -54,6 +54,7 @@ vars:
   DOCS_COMPOSE_FILE: docker-compose.docs.yml
   LOCAL_COMPOSE_FILE: docker-compose.local.yml
   PROD_COMPOSE_FILE: docker-compose.production.yml
+  DJANGO_CONTAINER_NAME: django_template_local_django
   # ports
   MKDOCS_PORT: 0.0.0.0:8030
   # urls
@@ -79,7 +80,7 @@ tasks:
     desc: "Setup environment: install dependencies, generate config etc."
     cmds:
       - pre-commit install
-      - docker compose -f {{.LOCAL_COMPOSE_FILE}} up -d
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} up -d --build
 
 # ─── Environment Management ────────────────────────────────────────────────────
   dev:
@@ -91,7 +92,7 @@ tasks:
         docker compose -f {{.LOCAL_COMPOSE_FILE}} run --rm \
           -e DJANGO_SUPERUSER_USERNAME=admin \
           -e DJANGO_SUPERUSER_EMAIL=admin@admin.com \
-          -e DJANGO_SUPERUSER_PASSWORD=admin123 \
+          -e DJANGO_SUPERUSER_PASSWORD=admin1234 \
           django python manage.py createsuperuser --noinput || echo "User exists"
 
   prod:
@@ -129,15 +130,48 @@ tasks:
     cmds:
       - docker compose -f {{.LOCAL_COMPOSE_FILE}} run --rm django uv run pytest .
 
+  coverage:
+    desc: "Run a coverage report"
+    cmds:
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} run --rm django sh -c "coverage run -m pytest && coverage report && coverage html"
+      - docker cp {{.DJANGO_CONTAINER_NAME}}:/app/htmlcov ./htmlcov
+      - xdg-open htmlcov/index.html
+
   collectstatic:
     desc: "Runs collect static"
     cmds:
       - docker compose -f {{.LOCAL_COMPOSE_FILE}} run --rm django python manage.py collectstatic --noinput
 
+  showurls:
+    desc: "Show urls"
+    cmds:
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} run --rm django python manage.py show_urls
+
+  check:
+    desc: "Runs a syntax check"
+    cmds:
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} run --rm django python manage.py check
+
   restart:
     desc: "Restart Django"
     cmds:
       - docker compose -f {{.LOCAL_COMPOSE_FILE}} restart django
+    
+  logs:
+    desc: "Restart Django"
+    requires:
+      vars:
+        - n
+    cmds:
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} logs {{.n}}
+
+  run:
+    desc: "Run a command with the docker compose --rm .. stub"
+    requires:
+      vars:
+        - cmd
+    cmds:
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} run --rm django {{.cmd}}
 
 # ─── System Management ─────────────────────────────────────────────────────────
   ports:

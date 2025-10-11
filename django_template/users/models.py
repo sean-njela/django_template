@@ -1,5 +1,6 @@
 from typing import ClassVar
 
+from auditlog.registry import auditlog
 from django.contrib.auth.models import AbstractUser
 from django.db.models import CharField
 from django.db.models import EmailField
@@ -36,3 +37,6 @@ class User(AbstractUser):
 
         """
         return reverse("users:detail", kwargs={"pk": self.id})
+
+
+auditlog.register(User)

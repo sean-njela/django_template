@@ -9,6 +9,9 @@ from django.views.generic import TemplateView
 from drf_spectacular.views import SpectacularAPIView
 from drf_spectacular.views import SpectacularSwaggerView
 from rest_framework.authtoken.views import obtain_auth_token
+from wagtail import urls as wagtail_urls
+from wagtail.admin import urls as wagtailadmin_urls
+from wagtail.documents import urls as wagtaildocs_urls
 
 urlpatterns = [
     # Language switcher endpoint (must NOT be inside i18n_patterns)
@@ -16,9 +19,8 @@ urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),
 ]
 
-# Localised URL patterns (these will have /en/, /pl/, /de/ prefixes)
 # changelog-0.7.0
-urlpatterns += i18n_patterns(
+urlpatterns += (
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
         "about/",
@@ -51,6 +53,17 @@ urlpatterns += [
     ),
 ]
 
+# WAGTAIL URLS
+# https://docs.wagtail.org/en/stable/getting_started/integrating_into_django.html
+urlpatterns += [
+    path("cms/", include(wagtailadmin_urls)),
+    path("documents/", include(wagtaildocs_urls)),
+    path("pages/", include(wagtail_urls)),
+]
+
+# Localised URL patterns (these will have /en/, /pl/, /de/ prefixes)
+urlpatterns += i18n_patterns()
+
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit
     # these url in browser to see how these error pages look like.
@@ -71,6 +84,8 @@ if settings.DEBUG:
             kwargs={"exception": Exception("Page not Found")},
         ),
         path("500/", default_views.server_error),
+        path("schema-viewer/", include("schema_viewer.urls")),
+        path("data-browser/", include("data_browser.urls")),
     ]
     if "debug_toolbar" in settings.INSTALLED_APPS:
         import debug_toolbar
