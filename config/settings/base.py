@@ -100,7 +100,7 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount",
     # "allauth.socialaccount.providers.google",
     # "allauth.socialaccount.providers.github",
-    "allauth.socialaccount.providers.openid_connect",
+    # "allauth.socialaccount.providers.openid_connect",
     "django_celery_beat",
     "rest_framework",
     "rest_framework.authtoken",
@@ -431,26 +431,26 @@ SOCIALACCOUNT_PROVIDERS = {
     #         "key": "",
     #     },
     # },
-    "openid_connect": {
-        "OAUTH_PKCE_ENABLED": True,
-        "APPS": [
-            {
-                "provider_id": "auth0",
-                "name": "Auth0",
-                "client_id": env("AUTH0_CLIENT_ID"),
-                "secret": env("AUTH0_CLIENT_SECRET"),
-                "settings": {
-                    # Must be your tenant base URL
-                    "server_url": f"https://{env('AUTH0_DOMAIN')}",
-                    "fetch_userinfo": True,
-                    "oauth_pkce_enabled": True,
-                    # Use basic unless Auth0 specifically requires post
-                    "token_auth_method": "client_secret_basic",
-                    "scope": ["openid", "profile", "email"],
-                },
-            },
-        ],
-    },
+    # "openid_connect": {
+    #     "OAUTH_PKCE_ENABLED": True,
+    #     "APPS": [
+    #         {
+    #             "provider_id": "auth0",
+    #             "name": "Auth0",
+    #             "client_id": env("AUTH0_CLIENT_ID"),
+    #             "secret": env("AUTH0_CLIENT_SECRET"),
+    #             "settings": {
+    #                 # Must be your tenant base URL
+    #                 "server_url": f"https://{env('AUTH0_DOMAIN')}",
+    #                 "fetch_userinfo": True,
+    #                 "oauth_pkce_enabled": True,
+    #                 # Use basic unless Auth0 specifically requires post
+    #                 "token_auth_method": "client_secret_basic",
+    #                 "scope": ["openid", "profile", "email"],
+    #             },
+    #         },
+    #     ],
+    # },
 }
 # Magic login
 # Disable normal verification links, rely on code login flow only
