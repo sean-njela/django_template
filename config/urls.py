@@ -19,9 +19,8 @@ urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),
 ]
 
-# Localised URL patterns (these will have /en/, /pl/, /de/ prefixes)
 # changelog-0.7.0
-urlpatterns += i18n_patterns(
+urlpatterns += (
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
         "about/",
@@ -61,6 +60,9 @@ urlpatterns += [
     path("documents/", include(wagtaildocs_urls)),
     path("pages/", include(wagtail_urls)),
 ]
+
+# Localised URL patterns (these will have /en/, /pl/, /de/ prefixes)
+urlpatterns += i18n_patterns()
 
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit

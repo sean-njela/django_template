@@ -10,7 +10,6 @@ from django.http import HttpRequest
 from django.http import HttpResponseRedirect
 from django.test import RequestFactory
 from django.urls import reverse
-from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 
 from django_template.users.forms import UserAdminChangeForm
@@ -29,12 +28,11 @@ class TestUserUpdateView:
 
     def test_get_success_url(self, user: User, rf: RequestFactory):
         """Ensure update success URL includes language prefix."""
-        lang = get_language() or "en"
         view = UserUpdateView()
         request = rf.get("/fake-url/")
         request.user = user
         view.request = request
-        assert view.get_success_url() == f"/{lang}/users/{user.pk}/"
+        assert view.get_success_url() == f"/users/{user.pk}/"
 
     def test_get_object(self, user: User, rf: RequestFactory):
         view = UserUpdateView()
@@ -61,12 +59,11 @@ class TestUserUpdateView:
 class TestUserRedirectView:
     def test_get_redirect_url(self, user: User, rf: RequestFactory):
         """Ensure redirect URL includes language prefix."""
-        lang = get_language() or "en"
         view = UserRedirectView()
         request = rf.get("/fake-url")
         request.user = user
         view.request = request
-        assert view.get_redirect_url() == f"/{lang}/users/{user.pk}/"
+        assert view.get_redirect_url() == f"/users/{user.pk}/"
 
 
 class TestUserDetailView:

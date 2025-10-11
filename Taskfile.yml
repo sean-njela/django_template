@@ -54,6 +54,7 @@ vars:
   DOCS_COMPOSE_FILE: docker-compose.docs.yml
   LOCAL_COMPOSE_FILE: docker-compose.local.yml
   PROD_COMPOSE_FILE: docker-compose.production.yml
+  DJANGO_CONTAINER_NAME: django_template_local_django
   # ports
   MKDOCS_PORT: 0.0.0.0:8030
   # urls
@@ -129,10 +130,22 @@ tasks:
     cmds:
       - docker compose -f {{.LOCAL_COMPOSE_FILE}} run --rm django uv run pytest .
 
+  coverage:
+    desc: "Run a coverage report"
+    cmds:
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} run --rm django sh -c "coverage run -m pytest && coverage report && coverage html"
+      - docker cp {{.DJANGO_CONTAINER_NAME}}:/app/htmlcov ./htmlcov
+      - xdg-open htmlcov/index.html
+
   collectstatic:
     desc: "Runs collect static"
     cmds:
       - docker compose -f {{.LOCAL_COMPOSE_FILE}} run --rm django python manage.py collectstatic --noinput
+
+  showurls:
+    desc: "Show urls"
+    cmds:
+      - docker compose -f {{.LOCAL_COMPOSE_FILE}} run --rm django python manage.py show_urls
 
   check:
     desc: "Runs a syntax check"
